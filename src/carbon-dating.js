@@ -7,7 +7,7 @@ const HALF_LIFE_PERIOD = 5730;
  * Determine the age of archeological find by using
  * given MODERN_ACTIVITY and HALF_LIFE_PERIOD values
  *
- * @param {String} sampleActivity string representation of current activity
+ * @param {String} sampleActivity string representation of current act
  * @return {Number | Boolean} calculated age in years or false
  * in case of incorrect sampleActivity
  *
@@ -17,9 +17,14 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function dateSample(sampleActivity) {
+  if (typeof sampleActivity !== 'string') return false;
+  const act = parseFloat(sampleActivity);
+  if (isNaN(act) || !isFinite(act) || act <= 0 || act >= MODERN_ACTIVITY) return false;
+
+  const k = 0.693 / HALF_LIFE_PERIOD;
+  const t = Math.ceil(Math.log(MODERN_ACTIVITY / act) / k);
+  return t;
 }
 
 module.exports = {
